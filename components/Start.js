@@ -125,6 +125,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: "center"
   },
+  icon: {
+    width: 20,
+    height: 20,
+    marginRight: 10
+  },
   inputText: {
     fontSize: 16,
     fontWeight: '300',
