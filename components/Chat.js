@@ -1,12 +1,16 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Platform, KeyboardAvoidingView } from 'react-native';
+
+//import Gifted Chat library
+import { GiftedChat, Bubble } from 'react-native-gifted-chat';
 
 // The application’s main Chat component that renders the chat UI
-export default class Start extends React.Component {
+export default class Chat extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       name: '',
+      messages: [],
     }
   }
 
@@ -19,7 +23,16 @@ export default class Start extends React.Component {
 
     return (
       <View style={styles.container} backgroundColor={backgroundColor}>
-        <Text></Text>
+        <GiftedChat
+        renderBubble={this.renderBubble.bind(this)}
+          messages={this.state.messages}
+          onSend={messages => this.onSend(messages)}
+          user={{
+            _id: 1,
+          }}
+        />
+        { Platform.OS === 'android' ? <KeyboardAvoidingView behavior="height" /> : null
+ }
       </View>
     )
   }
