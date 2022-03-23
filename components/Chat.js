@@ -37,6 +37,13 @@ export default class Chat extends React.Component {
     })
   }
 
+  //this is called upon sending a message. The new message is appended to the messages state
+  onSend(messages = []) {
+    this.setState(previousState => ({
+      messages: GiftedChat.append(previousState.messages, messages),
+    }))
+  }
+
   render() {
 
     let name = this.props.route.params.name;
