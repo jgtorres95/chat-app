@@ -44,6 +44,20 @@ export default class Chat extends React.Component {
     }))
   }
 
+  //this function changes the color of the speech bubble
+  renderBubble(props) {
+    return (
+      <Bubble 
+        {...props}
+        wrapperStyle={{
+          right: {
+            backgroundColor: '#000'
+          }
+        }}
+      />
+    )
+  }
+
   render() {
 
     let name = this.props.route.params.name;
