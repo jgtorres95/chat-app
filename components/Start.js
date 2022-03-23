@@ -1,7 +1,9 @@
 import React from 'react';
-import { StyleSheet, View, Text, TextInput, Button, ImageBackground, Touchable, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TextInput, Button, ImageBackground, Touchable, TouchableOpacity, Pressable, Image } from 'react-native';
 
+// import background image and icon
 import BackgroundImage from '../assets/background-image.png';
+import Icon from '../assets/chat-icon.svg';
 
 // The application’s Start screen 
 export default class Start extends React.Component {
@@ -41,6 +43,7 @@ export default class Start extends React.Component {
             <Text style={styles.titleText}>chatMe</Text>
           </View>
           <View style={styles.inputBox}>
+          <Image source ={Icon}  style={styles.icon}/>
           <TextInput 
             style={styles.inputText}
             placeholder="Your Name"
