@@ -85,16 +85,16 @@ export default class Start extends React.Component {
               onPress={() => this.updateColor(this.colors.green)}
             />
           </View>
-          <Button
-            style={styles.chatButton}
-            onPress={() => {
-              this.props.navigation.navigate("Chat", {
-                name: this.state.name,
-                backgroundColor: this.state.backgroundColor,
-              })
-            }}
-            title="Start Chatting"
-          />
+          <Pressable style={styles.buttonBox}
+              onPress={() => {
+                this.props.navigation.navigate("Chat", {
+                  name: this.state.name,
+                  backgroundColor: this.state.backgroundColor,
+                })
+              }}
+          >
+              <Text style={styles.buttonText}>Start Chatting</Text>
+          </Pressable>
           </View>
         </ImageBackground>
       </View>
@@ -136,11 +136,17 @@ const styles = StyleSheet.create({
     width: "88%",
     height: "10%"
   },
-  chatButton: {
+  buttonBox: {
+    backgroundColor: '#757083',
+    width: "88%",
+    height: 65,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  buttonText: {
     fontSize: 16,
     fontWeight: '600',
     color: '#FFFFFF',
-    width: "88%",
   },
   backgroundImage: {
     flex: 1,
