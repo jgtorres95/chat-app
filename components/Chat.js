@@ -28,6 +28,11 @@ export default class Chat extends React.Component {
         avatar: "",
       },
     }
+
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
+
   }
 
   componentDidMount() {
