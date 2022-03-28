@@ -4,6 +4,17 @@ import { View, Text, StyleSheet, Platform, KeyboardAvoidingView } from 'react-na
 //import Gifted Chat library
 import { GiftedChat, Bubble } from 'react-native-gifted-chat';
 
+const firebase = require('firebase');
+require('firebase/firestore');
+
+const firebaseConfig = {
+  apiKey: "AIzaSyACAVEDhGYcOenl1Z-IZRV5MD6DMjidujg",
+  authDomain: "test-fda01.firebaseapp.com",
+  projectId: "test-fda01",
+  storageBucket: "test-fda01.appspot.com",
+  messagingSenderId: "1063455601946",
+}
+
 // The application’s main Chat component that renders the chat UI
 export default class Chat extends React.Component {
   constructor(props) {
