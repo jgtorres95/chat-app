@@ -129,19 +129,18 @@ export default class Chat extends React.Component {
 
   render() {
 
-    let name = this.props.route.params.name;
-    this.props.navigation.setOptions({ title: name });
-
     let backgroundColor = this.props.route.params.backgroundColor;
 
     return (
       <View style={styles.container} backgroundColor={backgroundColor}>
         <GiftedChat
-        renderBubble={this.renderBubble.bind(this)}
+          renderBubble={this.renderBubble.bind(this)}
           messages={this.state.messages}
           onSend={messages => this.onSend(messages)}
           user={{
-            _id: 1,
+            _id: this.state.user._id,
+            name: this.state.name,
+            avatar: this.state.user.avatar
           }}
         />
         { Platform.OS === 'android' ? <KeyboardAvoidingView behavior="height" /> : null
