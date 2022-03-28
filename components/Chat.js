@@ -63,6 +63,12 @@ export default class Chat extends React.Component {
         .onSnapshot(this.onCollectionUpdate)
     });
   }
+
+  componentWillUnmount() {
+    // stop listening for changes in collection
+    this.authUnsubscribe();
+    this.unsubscribe();
+  }
     this.setState({
       messages: [
         {
