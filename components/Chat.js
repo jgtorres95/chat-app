@@ -93,6 +93,14 @@ export default class Chat extends React.Component {
     });
   };
 
+  // add new messages to the messages collection
+  addMessages () {
+    const message = this.state.messages[0];
+    this.referenceChatMessages.add({
+      _id: message._id,
+      text: message.text || "",
+      createdAt: message.createdAt,
+      user: this.state.user,
     })
   }
 
