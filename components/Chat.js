@@ -89,6 +89,10 @@ export default class Chat extends React.Component {
       });
     });
     this.setState({
+      messages: messages,
+    });
+  };
+
     })
   }
 
