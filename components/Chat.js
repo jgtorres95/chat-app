@@ -69,6 +69,25 @@ export default class Chat extends React.Component {
     this.authUnsubscribe();
     this.unsubscribe();
   }
+
+  // called when new snapshot is taken. The function updates the messages state with the snapshot's data
+  onCollectionUpdate = (querySnapshot) => {
+    const messages = [];
+    // go through each document
+    querySnapshot.forEach((doc) => {
+      // get the QueryDocumentSnapshot's data
+      let data = doc.data();
+      messages.push({
+        _id: data._id,
+        text: data.text,
+        createdAt: data.createdAt.toDate(),
+        user: {
+          _id: data.user._id,
+          name: data.user.name,
+          avatar: data.user.avatar
+        },
+      });
+    });
     this.setState({
       messages: [
         {
