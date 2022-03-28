@@ -108,7 +108,9 @@ export default class Chat extends React.Component {
   onSend(messages = []) {
     this.setState(previousState => ({
       messages: GiftedChat.append(previousState.messages, messages),
-    }))
+    }), () => {
+      this.addMessages();
+    })
   }
 
   //this function changes the color of the speech bubble
