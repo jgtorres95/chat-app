@@ -67,6 +67,18 @@ export default class Chat extends React.Component {
     }
   }
 
+  // delete messages from asyncStorage
+  async deleteMessages() {
+    try {
+      await AsyncStorage.removeItem('messages');
+      this.setState({
+        messages: [],
+      })
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
   componentDidMount() {
     // set page title using user's name
     let name = this.props.route.params.name;
