@@ -45,6 +45,28 @@ export default class Chat extends React.Component {
 
   }
 
+  // get messages from asyncStorage and update messages state
+  async getMessages() {
+    let messages = '';
+    try {
+      messages = await AsyncStorage.getItem('messages') || [];
+      this.setState({
+        messages: JSON.parse(messages)
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  // save messages to asyncStorage
+  async saveMessages() {
+    try {
+      await AsyncStorage.setItem('messages', JSON.stringify(this.state.messages));
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
   componentDidMount() {
     // set page title using user's name
     let name = this.props.route.params.name;
