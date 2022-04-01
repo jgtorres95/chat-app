@@ -170,6 +170,7 @@ export default class Chat extends React.Component {
       messages: GiftedChat.append(previousState.messages, messages),
     }), () => {
       this.addMessages();
+      this.saveMessages();
     })
   }
 
@@ -187,6 +188,18 @@ export default class Chat extends React.Component {
     )
   }
 
+  // this function hides the input bar on the chat screen when the user is offline
+  renderInputToolbar(props) {
+    if (this.state.isConnected === false) {
+    } else {
+      return(
+        <InputToolbar
+        {...props}
+        />
+      );
+    }
+  }
+
   render() {
 
     let backgroundColor = this.props.route.params.backgroundColor;
@@ -195,6 +208,7 @@ export default class Chat extends React.Component {
       <View style={styles.container} backgroundColor={backgroundColor}>
         <GiftedChat
           renderBubble={this.renderBubble.bind(this)}
+          renderInputToolbar={this.renderInputToolbar.bind(this)}
           messages={this.state.messages}
           onSend={messages => this.onSend(messages)}
           user={{
