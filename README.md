@@ -26,10 +26,10 @@ The application is built using React Native.
 
 1. Download and install the code.
 
-2. Install Expo globally $ npm install --global expo-cli.
+2. Install Expo globally `npm install --global expo-cli`.
 
-3. To start the app, run $ expo start or $ npm start.
+3. To start the app, run `expo start` or `npm start`.
 
-4. To run the app on a device, install an emulator or Expo Go on your smartphone.
+4. To run the app on a device, install an emulator or *Expo Go* on your smartphone.
 
 ## **Dev Dependencies**
