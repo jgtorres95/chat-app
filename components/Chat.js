@@ -249,9 +249,12 @@ export default class Chat extends React.Component {
     return (
       <View style={styles.container} backgroundColor={backgroundColor}>
         <GiftedChat
+          renderActions={this.renderCustomActions}
+          renderCustomView={this.renderCustomView}
           renderBubble={this.renderBubble.bind(this)}
           renderInputToolbar={this.renderInputToolbar.bind(this)}
           messages={this.state.messages}
+          isConnected={this.state.isConnected}
           onSend={messages => this.onSend(messages)}
           user={{
             _id: this.state.user._id,
