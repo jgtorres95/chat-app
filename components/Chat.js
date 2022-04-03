@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Platform, KeyboardAvoidingView } from 'react-native';
+import { View, StyleSheet, Platform, KeyboardAvoidingView } from 'react-native';
 
 //import Gifted Chat library
 import { GiftedChat, Bubble, InputToolbar } from 'react-native-gifted-chat';
