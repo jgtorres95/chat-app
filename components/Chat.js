@@ -216,6 +216,10 @@ export default class Chat extends React.Component {
     }
   }
 
+  renderCustomActions = (props) => {
+    return <CustomActions {...props} />
+  };
+
   render() {
 
     let backgroundColor = this.props.route.params.backgroundColor;
