@@ -175,6 +175,10 @@ export default class Chat extends React.Component {
       user: this.state.user,
     })
   }
+      image: message.image || null,
+      location: message.location || null,
+    });
+  };
 
   //this is called upon sending a message. The new message is appended to the messages state
   onSend(messages = []) {
