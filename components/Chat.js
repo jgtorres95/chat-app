@@ -25,6 +25,8 @@ const firebaseConfig = {
   projectId: "test-fda01",
   storageBucket: "test-fda01.appspot.com",
   messagingSenderId: "1063455601946",
+  appId: "1:1063455601946:web:8b07ac70643e78ebbe68a3",
+  measurementId: "G-56HXPPEY2F"
 }
 
 // The application’s main Chat component that renders the chat UI
