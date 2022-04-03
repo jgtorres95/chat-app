@@ -1,7 +1,10 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
+// import PropTypes
+import PropTypes from 'prop-types';
+
+// import expo APIs
 import * as ImagePicker from "expo-image-picker";
 import * as Location from "expo-location";
 import * as Permissions from 'expo-permissions';
