@@ -1,6 +1,6 @@
 # **ChatMe**
 
-# **Overview**
+## **Overview**
 
 A chat application for mobile devices that allows users to chat, share images, and share their location.
 
@@ -33,3 +33,8 @@ The application is built using React Native.
 4. To run the app on a device, install an emulator or *Expo Go* on your smartphone.
 
 ## **Dev Dependencies**
+
+- React Native
+- Expo
+- Google Firebase
+- Gifted Chat
