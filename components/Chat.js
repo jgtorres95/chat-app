@@ -4,11 +4,17 @@ import { View, Text, StyleSheet, Platform, KeyboardAvoidingView } from 'react-na
 //import Gifted Chat library
 import { GiftedChat, Bubble, InputToolbar } from 'react-native-gifted-chat';
 
+// import MapView
+import MapView from "react-native-maps";
+
 // import asyncStorage
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // import NetInfo
 import NetInfo from '@react-native-community/netinfo';
+
+// import CustomActions component
+import CustomActions from './CustomActions';
 
 const firebase = require('firebase');
 require('firebase/firestore');
