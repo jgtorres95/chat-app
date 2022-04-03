@@ -40,7 +40,7 @@ export default class Start extends React.Component {
           style={styles.backgroundImage}
         >
           <View style={styles.titleBox}>
-            <Text style={styles.titleText}>chatMe</Text>
+            <Text style={styles.titleText}>ChatMe</Text>
           </View>
           <View style={styles.inputBox}>
           <Image source ={Icon}  style={styles.icon}/>
