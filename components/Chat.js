@@ -214,10 +214,12 @@ export default class Chat extends React.Component {
     }
   }
 
+  // this function renders the CustomActions component
   renderCustomActions = (props) => {
     return <CustomActions {...props} />
   };
 
+  // this function renders the MapView when a location is sent
   renderCustomView (props) {
     const { currentMessage} = props;
     if (currentMessage.location) {
@@ -241,7 +243,7 @@ export default class Chat extends React.Component {
  
 
   render() {
-
+    // set background color based on user selection
     let backgroundColor = this.props.route.params.backgroundColor;
 
     return (
