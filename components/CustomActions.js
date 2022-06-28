@@ -1,45 +1,47 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import React from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 // import PropTypes
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 // import expo APIs
 import * as ImagePicker from "expo-image-picker";
 import * as Location from "expo-location";
-import * as Permissions from 'expo-permissions';
+import * as Permissions from "expo-permissions";
 
-const firebase = require('firebase');
-require('firebase/firestore');
+const firebase = require("firebase");
+require("firebase/firestore");
 
 export default class CustomActions extends React.Component {
-
   // function that allows users to pick an image
   pickImage = async () => {
     // ask for permission to access camera roll
     const { status } = await Permissions.askAsync(Permissions.MEDIA_LIBRARY);
     try {
-      if (status === 'granted') {
+      if (status === "granted") {
         let result = await ImagePicker.launchImageLibraryAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        }).catch(error => console.log(error));
+        }).catch((error) => console.log(error));
         // pass image URL to onSend function
-        if(!result.cancelled) {
+        if (!result.cancelled) {
           const imageUrl = await this.uploadImage(result.uri);
           this.props.onSend({ image: imageUrl });
-        } 
-      } 
+        }
+      }
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   // function that allows users to take a photo
   takePhoto = async () => {
     // ask for permission to access camera
-    const { status } = await Permissions.askAsync(Permissions.MEDIA_LIBRARY_WRITE_ONLY, Permissions.CAMERA);
+    const { status } = await Permissions.askAsync(
+      Permissions.MEDIA_LIBRARY_WRITE_ONLY,
+      Permissions.CAMERA
+    );
     try {
-      if (status === 'granted') {
+      if (status === "granted") {
         let result = await ImagePicker.launchCameraAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.Images,
         }).catch((error) => console.log(error));
@@ -52,15 +54,17 @@ export default class CustomActions extends React.Component {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   // function that allows users to send thier location
   getLocation = async () => {
     //ask for permission to access location
     const { status } = await Permissions.askAsync(Permissions.LOCATION);
     try {
-      if(status === 'granted') {
-        let result = await Location.getCurrentPositionAsync({}).catch(error => console.log(error));
+      if (status === "granted") {
+        let result = await Location.getCurrentPositionAsync({}).catch((error) =>
+          console.log(error)
+        );
         // pass latitude and longitude to onSend function
         if (result) {
           this.props.onSend({
@@ -71,10 +75,10 @@ export default class CustomActions extends React.Component {
           });
         }
       }
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   // upload images to firebase
   uploadImage = async (uri) => {
@@ -106,8 +110,13 @@ export default class CustomActions extends React.Component {
 
   // function that handles communication features
   onActionPress = () => {
-    const options = ['Choose from Library', 'Take Picture', 'Send Location', 'Cancel'];
-    const cancelButtonIndex = options.length -1;
+    const options = [
+      "Choose from Library",
+      "Take Picture",
+      "Send Location",
+      "Cancel",
+    ];
+    const cancelButtonIndex = options.length - 1;
     this.context.actionSheet().showActionSheetWithOptions(
       {
         options,
@@ -116,16 +125,16 @@ export default class CustomActions extends React.Component {
       async (buttonIndex) => {
         switch (buttonIndex) {
           case 0:
-            console.log('user wants to pick an image');
+            console.log("user wants to pick an image");
             return this.pickImage();
           case 1:
-            console.log('user wants to take a photo');
+            console.log("user wants to take a photo");
             return this.takePhoto();
           case 2:
-            console.log('user wants to get their location');
+            console.log("user wants to get their location");
             return this.getLocation();
         }
-      },
+      }
     );
   };
 
@@ -137,7 +146,7 @@ export default class CustomActions extends React.Component {
         accessibilityHint="Lets you choose to send an image or your geolocation."
         style={[styles.container]}
         onPress={this.onActionPress}
-        >
+      >
         <View style={[styles.wrapper, this.props.wrapperStyle]}>
           <Text style={[styles.iconText, this.props.iconTextStyle]}>+</Text>
         </View>
@@ -155,16 +164,16 @@ const styles = StyleSheet.create({
   },
   wrapper: {
     borderRadius: 13,
-    borderColor: '#b2b2b2',
+    borderColor: "#b2b2b2",
     borderWidth: 2,
     flex: 1,
   },
   iconText: {
-    color: '#b2b2b2',
-    fontWeight: 'bold',
+    color: "#b2b2b2",
+    fontWeight: "bold",
     fontSize: 16,
-    backgroundColor: 'transparent',
-    textAlign: 'center',
+    backgroundColor: "transparent",
+    textAlign: "center",
   },
 });
 
