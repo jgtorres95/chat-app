@@ -1,8 +1,8 @@
-import React from 'react';
-import { View, StyleSheet, Platform, KeyboardAvoidingView } from 'react-native';
+import React from "react";
+import { View, StyleSheet, Platform, KeyboardAvoidingView } from "react-native";
 
 //import Gifted Chat library
-import { GiftedChat, Bubble, InputToolbar } from 'react-native-gifted-chat';
+import { GiftedChat, Bubble, InputToolbar } from "react-native-gifted-chat";
 
 // import MapView
 import MapView from "react-native-maps";
@@ -11,13 +11,13 @@ import MapView from "react-native-maps";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // import NetInfo
-import NetInfo from '@react-native-community/netinfo';
+import NetInfo from "@react-native-community/netinfo";
 
 // import CustomActions component
-import CustomActions from './CustomActions';
+import CustomActions from "./CustomActions";
 
-const firebase = require('firebase');
-require('firebase/firestore');
+const firebase = require("firebase");
+require("firebase/firestore");
 
 const firebaseConfig = {
   apiKey: "AIzaSyACAVEDhGYcOenl1Z-IZRV5MD6DMjidujg",
@@ -26,8 +26,8 @@ const firebaseConfig = {
   storageBucket: "test-fda01.appspot.com",
   messagingSenderId: "1063455601946",
   appId: "1:1063455601946:web:8b07ac70643e78ebbe68a3",
-  measurementId: "G-56HXPPEY2F"
-}
+  measurementId: "G-56HXPPEY2F",
+};
 
 // The application’s main Chat component that renders the chat UI
 export default class Chat extends React.Component {
@@ -44,24 +44,23 @@ export default class Chat extends React.Component {
       isConnected: false,
       image: null,
       location: null,
-    }
+    };
 
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
     }
 
     //reference to Firestore messages collection
-    this.referenceChatMessages = firebase.firestore().collection('messages');
-
+    this.referenceChatMessages = firebase.firestore().collection("messages");
   }
 
   // get messages from asyncStorage and update messages state
   async getMessages() {
-    let messages = '';
+    let messages = "";
     try {
-      messages = await AsyncStorage.getItem('messages') || [];
+      messages = (await AsyncStorage.getItem("messages")) || [];
       this.setState({
-        messages: JSON.parse(messages)
+        messages: JSON.parse(messages),
       });
     } catch (error) {
       console.log(error.message);
@@ -71,7 +70,10 @@ export default class Chat extends React.Component {
   // save messages to asyncStorage
   async saveMessages() {
     try {
-      await AsyncStorage.setItem('messages', JSON.stringify(this.state.messages));
+      await AsyncStorage.setItem(
+        "messages",
+        JSON.stringify(this.state.messages)
+      );
     } catch (error) {
       console.log(error.message);
     }
@@ -80,10 +82,10 @@ export default class Chat extends React.Component {
   // delete messages from asyncStorage
   async deleteMessages() {
     try {
-      await AsyncStorage.removeItem('messages');
+      await AsyncStorage.removeItem("messages");
       this.setState({
         messages: [],
-      })
+      });
     } catch (error) {
       console.log(error.message);
     }
@@ -95,43 +97,43 @@ export default class Chat extends React.Component {
     this.props.navigation.setOptions({ title: name });
 
     // use NetInfo to fetch user's connection status. If user if offline, load and display messages from async storage. If user is online then authenticase via Firebase, load messages from Firebase, and save messages to asyncStorage.
-    NetInfo.fetch().then(connection => {
+    NetInfo.fetch().then((connection) => {
       if (connection.isConnected) {
-        console.log('online');
+        console.log("online");
         this.setState({
           isConnected: true,
-        })
+        });
         // check whether user is signed in. If they are not, then create a new anonymous user
         this.authUnsubscribe = firebase.auth().onAuthStateChanged((user) => {
           if (!user) {
             firebase.auth().signInAnonymously();
           }
-        // update user state with currently active user data
-        this.setState({
-          uid: user.uid,
-          messages: [],
-          user: {
+          // update user state with currently active user data
+          this.setState({
+            uid: user.uid,
+            messages: [],
+            user: {
               _id: user.uid,
               name: name,
               avatar: "https://placeimg.com/140/140/any",
-          },
-        });
-        // listen for changes in messages collection
-        this.unsubscribe = this.referenceChatMessages
-          .orderBy("createdAt", "desc")
-          .onSnapshot(this.onCollectionUpdate)
-        // save messages to asyncStorage when user is online
-        this.saveMessages();
+            },
+          });
+          // listen for changes in messages collection
+          this.unsubscribe = this.referenceChatMessages
+            .orderBy("createdAt", "desc")
+            .onSnapshot(this.onCollectionUpdate);
+          // save messages to asyncStorage when user is online
+          this.saveMessages();
         });
       } else {
-        console.log('offline');
+        console.log("offline");
         this.setState({
           isConnected: false,
-        })
+        });
         // get messages from async storage if user is offline
         this.getMessages();
       }
-    })
+    });
   }
 
   componentWillUnmount() {
@@ -154,10 +156,10 @@ export default class Chat extends React.Component {
         user: {
           _id: data.user._id,
           name: data.user.name,
-          avatar: data.user.avatar
+          avatar: data.user.avatar,
         },
         image: data.image || null,
-        location: data.location || null
+        location: data.location || null,
       });
     });
     this.setState({
@@ -166,7 +168,7 @@ export default class Chat extends React.Component {
   };
 
   // add new messages to the messages collection
-  addMessages () {
+  addMessages() {
     const message = this.state.messages[0];
     this.referenceChatMessages.add({
       _id: message._id,
@@ -176,71 +178,66 @@ export default class Chat extends React.Component {
       image: message.image || null,
       location: message.location || null,
     });
-  };
+  }
 
   //this is called upon sending a message. The new message is appended to the messages state
   onSend(messages = []) {
-    this.setState(previousState => ({
-      messages: GiftedChat.append(previousState.messages, messages),
-    }), () => {
-      this.addMessages();
-      this.saveMessages();
-    })
+    this.setState(
+      (previousState) => ({
+        messages: GiftedChat.append(previousState.messages, messages),
+      }),
+      () => {
+        this.addMessages();
+        this.saveMessages();
+      }
+    );
   }
 
   //this function changes the color of the speech bubble
   renderBubble(props) {
     return (
-      <Bubble 
+      <Bubble
         {...props}
         wrapperStyle={{
           right: {
-            backgroundColor: '#000'
-          }
+            backgroundColor: "#000",
+          },
         }}
       />
-    )
+    );
   }
 
   // this function hides the input bar on the chat screen when the user is offline
   renderInputToolbar(props) {
     if (this.state.isConnected === false) {
     } else {
-      return(
-        <InputToolbar
-        {...props}
-        />
-      );
+      return <InputToolbar {...props} />;
     }
   }
 
   // this function renders the CustomActions component
   renderCustomActions = (props) => {
-    return <CustomActions {...props} />
+    return <CustomActions {...props} />;
   };
 
   // this function renders the MapView when a location is sent
-  renderCustomView (props) {
-    const { currentMessage} = props;
+  renderCustomView(props) {
+    const { currentMessage } = props;
     if (currentMessage.location) {
       return (
-          <MapView
-            style={{width: 150,
-              height: 100,
-              borderRadius: 13,
-              margin: 3}}
-            region={{
-              latitude: currentMessage.location.latitude,
-              longitude: currentMessage.location.longitude,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
-            }}
-          />
+        <MapView
+          style={{ width: 150, height: 100, borderRadius: 13, margin: 3 }}
+          region={{
+            latitude: currentMessage.location.latitude,
+            longitude: currentMessage.location.longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+        />
       );
     }
     return null;
   }
- 
 
   render() {
     // set background color based on user selection
@@ -255,22 +252,23 @@ export default class Chat extends React.Component {
           renderInputToolbar={this.renderInputToolbar.bind(this)}
           messages={this.state.messages}
           isConnected={this.state.isConnected}
-          onSend={messages => this.onSend(messages)}
+          onSend={(messages) => this.onSend(messages)}
           user={{
             _id: this.state.user._id,
             name: this.state.name,
-            avatar: this.state.user.avatar
+            avatar: this.state.user.avatar,
           }}
         />
-        { Platform.OS === 'android' ? <KeyboardAvoidingView behavior="height" /> : null
- }
+        {Platform.OS === "android" ? (
+          <KeyboardAvoidingView behavior="height" />
+        ) : null}
       </View>
-    )
+    );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  }
-})
+  },
+});
