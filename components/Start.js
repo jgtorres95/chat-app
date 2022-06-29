@@ -7,12 +7,10 @@ import {
   ImageBackground,
   TouchableOpacity,
   Pressable,
-  Image,
 } from "react-native";
 
-// import background image and icon
+// import background image 
 import BackgroundImage from "../assets/background-image.png";
-import Icon from "../assets/chat-icon.svg";
 
 // The application’s Start screen
 export default class Start extends React.Component {
