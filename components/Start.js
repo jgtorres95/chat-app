@@ -50,7 +50,7 @@ export default class Start extends React.Component {
             <Text style={styles.titleText}>ChatMe</Text>
           </View>
           <View style={styles.inputBox}>
-            <Image source={Icon} style={styles.icon} />
+            <Text style={styles.welcomeText}>Welcome!</Text>
             <TextInput
               style={styles.inputText}
               placeholder="Your Name"
@@ -132,6 +132,9 @@ const styles = StyleSheet.create({
     width: "88%",
     justifyContent: "space-around",
     alignItems: "center",
+  },
+  welcomeText: {
+    fontSize: 20,
   },
   icon: {
     width: 20,
