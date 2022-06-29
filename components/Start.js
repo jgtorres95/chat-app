@@ -54,6 +54,7 @@ export default class Start extends React.Component {
             <TextInput
               style={styles.inputText}
               placeholder="Your Name"
+              placeholderTextColor="#757083"
               onChangeText={(text) => this.setState({ name: text })}
             />
             <Text>Choose Background Color: </Text>
@@ -142,10 +143,10 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   inputText: {
+    paddingLeft: 10,
     fontSize: 16,
     fontWeight: "300",
     color: "#757083",
-    opacity: 1,
     height: 40,
     borderColor: "gray",
     borderWidth: 1,
